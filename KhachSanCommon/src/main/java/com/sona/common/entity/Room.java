@@ -14,9 +14,9 @@ public class Room {
     private Integer id;
     @Column(name = "is_active")
     private boolean isActive;
-    @Column
+    @Column(nullable = false)
     private int status;
-    @Column
+    @Column(nullable = false)
     private int floor;
     @Column
     private String note;

@@ -1,6 +1,7 @@
 package com.sona.admin.roomCategory;
 
 import com.sona.admin.FileUploadUtil;
+import com.sona.admin.room.RoomNotFoundException;
 import com.sona.admin.room.RoomService;
 import com.sona.common.entity.Account;
 import com.sona.common.entity.Room;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -61,5 +63,18 @@ public class CategoryController {
         model.addAttribute("roomCategory", roomCategory);
         model.addAttribute("pageTitle", "Thêm loại phòng");
         return "roomCategory/form-room-category";
+    }
+
+    @GetMapping("/loai-phong/xoa/{id}")
+    public String deleteCategory(@PathVariable(name = "id") Integer id,
+                             Model model,
+                             RedirectAttributes redirectAttributes) {
+        try {
+            categoryService.delete(id);
+            redirectAttributes.addFlashAttribute("message", "Loại phòng " + id + " đã xóa thành công");
+        } catch (RoomCategoryNotFoundException e) {
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
+        }
+        return "redirect:/loai-phong";
     }
 }

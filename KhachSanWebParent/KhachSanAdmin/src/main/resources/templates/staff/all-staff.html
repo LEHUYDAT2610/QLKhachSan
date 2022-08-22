@@ -10,10 +10,10 @@
 		<div class="page-wrapper">
 			<div class="content container-fluid">
 				<div class="page-header">
+					<div th:if="${message != null}" class="alert alert-success text-center">
+						[[${message}]]
+					</div>
 					<div class="row align-items-center">
-						<div th:if="${message != null}" class="alert alert-success text-center">
-							[[${message}]]
-						</div>
 						<div class="col">
 							<div class="mt-5">
 								<h4 class="card-title float-left mt-2">Tất cả thành viên</h4> <a th:href="@{/thanh-vien/them-thanh-vien}" class="btn btn-primary float-right veiwbutton">Thêm thành viên</a> </div>
@@ -86,7 +86,7 @@
 												<td>
 													<div class="actions">
 														<a th:href="@{'thanh-vien/sua/' + ${acc.id}}" class="fas fa-edit fa-2x mr-2" style="color: #00bf6f" title="Sửa thông tin thành viên này"></a>
-														<a id="deleteLink" data-toggle="modal" data-target="#delete_asset" th:accId="${acc.id}" class="fas fa-trash fa-2x mr-2" style="color: #0b2e13" title="Xóa thành viên này"></a>
+														<a th:onclick="'fillModal('+ ${acc.id}+ ')'" id="deleteLink" data-toggle="modal" data-target="#delete_asset" class="fas fa-trash fa-2x mr-2" style="color: #0b2e13" title="Xóa thành viên này"></a>
 														<form th:action="@{'thanh-vien/xoa/' + ${acc.id} }" th:hidden="true" id="deleteForm"></form>
 													</div>
 												</td>
@@ -118,6 +118,10 @@
 	<script>
 		function clearFilter() {
 			window.location = "[[@{/thanh-vien/}]]";
+		}
+
+		function fillModal(id) {
+			$('.delete_class').text('Bạn chắc chắc muốn xóa thành viên ' + id)
 		}
 	</script>
 </body>

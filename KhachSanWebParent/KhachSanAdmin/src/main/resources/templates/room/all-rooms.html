@@ -10,10 +10,10 @@
 		<div class="page-wrapper">
 			<div class="content container-fluid">
 				<div class="page-header">
+					<div th:if="${message != null}" class="alert alert-success text-center">
+						[[${message}]]
+					</div>
 					<div class="row align-items-center">
-						<div th:if="${message != null}" class="alert alert-success text-center">
-							[[${message}]]
-						</div>
 						<div class="col">
 							<div class="mt-5">
 								<h4 class="card-title float-left mt-2">Tất cả các phòng</h4> <a th:href="@{/room/them-phong}" class="btn btn-primary float-right veiwbutton">Thêm phòng</a> </div>

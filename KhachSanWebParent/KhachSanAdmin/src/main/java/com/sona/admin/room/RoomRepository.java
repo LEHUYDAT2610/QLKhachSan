@@ -15,7 +15,7 @@ public interface RoomRepository extends CrudRepository<Room, Integer> {
 
     @Query("UPDATE Room r SET r.isActive = ?2 where r.id = ?1")
     @Modifying
-    public void updateActiveStatus(Integer id, boolean enabled);
+    public void updateActiveStatus(Integer id, boolean isActive);
 
     Long countById(Integer id);
 }

@@ -10,10 +10,10 @@
 		<div class="page-wrapper">
 			<div class="content container-fluid">
 				<div class="page-header">
+					<div th:if="${message != null}" class="alert alert-success text-center">
+						[[${message}]]
+					</div>
 					<div class="row align-items-center">
-						<div th:if="${message != null}" class="alert alert-success text-center">
-							[[${message}]]
-						</div>
 						<div class="col">
 							<div class="mt-5">
 								<h4 class="card-title float-left mt-2">Tất cả các loại phòng</h4> <a th:href="@{/loai-phong/them-loai-phong}" class="btn btn-primary float-right veiwbutton">Thêm loại phòng</a> </div>
@@ -74,7 +74,8 @@
 												<td>
 													<div class="actions">
 														<a th:href="@{'loai-phong/sua/' + ${category.id}}" class="fas fa-edit fa-2x mr-2" style="color: #00bf6f" title="Sửa thông tin loại phòng này"></a>
-														<a data-toggle="modal" data-target="#delete_asset" th:href="@{'loai-phong/xoa/' + ${category.id} }" class="fas fa-trash fa-2x mr-2" style="color: #0b2e13" title="Xóa loại phòng này"></a>
+														<a th:onclick="'fillModal('+ ${category.id}+ ')'" id="deleteLink" data-toggle="modal" data-target="#delete_asset" class="fas fa-trash fa-2x mr-2" style="color: #0b2e13" title="Xóa loại phòng này"></a>
+														<form th:action="@{'loai-phong/xoa/' + ${category.id} }" th:hidden="true" id="deleteForm"></form>
 													</div>
 												</td>
 											</tr>
@@ -92,7 +93,7 @@
 						<div class="modal-body text-center"> <img th:src="@{/img/sent.png}" alt="" width="50" height="46">
 							<h3 class="delete_class">Bạn chắc chắn muốn xóa</h3>
 							<div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Hủy bỏ</a>
-								<button type="submit" class="btn btn-danger">Đồng ý</button>
+								<button type="submit" class="btn btn-danger" onclick="$($('#deleteForm').submit())">Xác nhận</button>
 							</div>
 						</div>
 					</div>
@@ -105,6 +106,10 @@
 	<script>
 		function clearFilter() {
 			window.location = "[[@{/loai-phong/}]]";
+		}
+
+		function fillModal(id) {
+			$('.delete_class').text('Bạn chắc chắc muốn xóa loại phòng ' + id)
 		}
 	</script>
 </body>
