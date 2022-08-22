@@ -29,7 +29,7 @@ public class CustomerController {
             List<Customer> customerList = customerService.listAll();
             model.addAttribute("customerList", customerList);
         }
-        return "all-customers";
+        return "customer/all-customers";
     }
 
 
@@ -38,7 +38,7 @@ public class CustomerController {
         Customer customer = new Customer();
         model.addAttribute("pageTitle", "Thêm khách hàng");
         model.addAttribute("customer", customer);
-        return "form-customer";
+        return "customer/form-customer";
     }
 
     @PostMapping("/khach-hang/save")
@@ -55,6 +55,7 @@ public class CustomerController {
                             RedirectAttributes redirectAttributes) {
         try {
             Customer customer = customerService.get(id);
+            model.addAttribute("pageTitle", "Sửa khách hàng");
             model.addAttribute("customer", customer);
             return "form-customer";
         } catch (CustomerNotFoundException e) {

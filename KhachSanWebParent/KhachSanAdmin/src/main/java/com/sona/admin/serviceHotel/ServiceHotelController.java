@@ -76,4 +76,15 @@ public class ServiceHotelController {
         }
         return "redirect:/dich-vu";
     }
+
+    @GetMapping("/dich-vu/{id}/enabled/{status}")
+    public String updateServiceEnableStatus(@PathVariable("id") Integer id, @PathVariable("status") boolean enabled, RedirectAttributes redirectAttributes) {
+        serviceHotelService.updateServiceEnabledStatus(id, enabled);
+        String status = enabled ? "enabled" : "disabled";
+        String message = "Dịch vụ có id " + id + " đã " + status;
+        redirectAttributes.addFlashAttribute("message", message);
+        return "redirect:/dich-vu";
+    }
 }
+
+

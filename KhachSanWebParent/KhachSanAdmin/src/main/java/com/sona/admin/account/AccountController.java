@@ -31,7 +31,7 @@ public class AccountController {
             List<Account> accountList = accountService.listAll();
             model.addAttribute("accountList", accountList);
         }
-        return "all-staff";
+        return "staff/all-staff";
     }
 
     @GetMapping("/thanh-vien/them-thanh-vien")
@@ -41,7 +41,7 @@ public class AccountController {
         account.setEnabled(true);
         model.addAttribute("account", account);
         model.addAttribute("roleList", roleList);
-        return "add-staff";
+        return "staff/add-staff";
     }
 
     @PostMapping("/thanh-vien/save")
@@ -72,7 +72,7 @@ public class AccountController {
 
             model.addAttribute("account", account);
             model.addAttribute("roleList", roleList);
-            return "edit-staff";
+            return "staff/edit-staff";
         } catch (UserNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
             return "redirect:/thanh-vien";

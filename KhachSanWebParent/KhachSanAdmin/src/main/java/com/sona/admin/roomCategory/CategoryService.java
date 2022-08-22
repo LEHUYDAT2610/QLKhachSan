@@ -18,4 +18,8 @@ public class CategoryService {
     public List<RoomCategory> getByKeyword(String keyword) {
         return categoryRepository.findByKeyword(keyword);
     }
+
+    public RoomCategory save(RoomCategory roomCategory) {
+        return categoryRepository.save(roomCategory);
+    }
 }

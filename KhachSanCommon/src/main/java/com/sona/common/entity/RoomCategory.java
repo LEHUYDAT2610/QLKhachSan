@@ -3,7 +3,9 @@ package com.sona.common.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -20,11 +22,25 @@ public class RoomCategory {
     private float size;
     @Column
     private String amenities;
-    @Column
-    private String photo;
+    @Column(name = "main_image", nullable = false)
+    private String mainImage;
     @Column
     private String description;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "roomCategory")
-    private List<Room> rooms;
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "roomCategory")
+//    private List<Room> rooms;
+
+    @OneToMany(mappedBy = "roomCategory", cascade = CascadeType.ALL)
+    private Set<RoomCategoryImage> images = new HashSet<>();
+
+    public void addExtraImage(String imageName) {
+        this.images.add(new RoomCategoryImage(imageName, this));
+    }
+
+    @Transient
+    public String getMainImagePath() {
+        if (id == null || mainImage == null)
+            return "/img/default-image.jpg";
+        return "/category-images/" + this.id + "/" + this.mainImage;
+    }
 }

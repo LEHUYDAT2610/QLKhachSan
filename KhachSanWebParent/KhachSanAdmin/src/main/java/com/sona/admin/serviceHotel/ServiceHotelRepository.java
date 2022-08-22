@@ -2,6 +2,7 @@ package com.sona.admin.serviceHotel;
 
 import com.sona.common.entity.Customer;
 import com.sona.common.entity.ServiceHotel;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,4 +13,8 @@ public interface ServiceHotelRepository extends CrudRepository<ServiceHotel, Int
     public List<ServiceHotel> findByKeyword(String keyword);
 
     Long countById(Integer id);
+
+    @Query("UPDATE ServiceHotel s SET s.isActive = ?2 where s.id = ?1")
+    @Modifying
+    public void updateEnabledStatus(Integer id, boolean enabled);
 }

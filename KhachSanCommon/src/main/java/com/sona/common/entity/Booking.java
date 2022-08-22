@@ -12,17 +12,18 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "ngay_dk")
-    private Date ngayDK;
-    @Column(name = "ngay_bd")
-    private Date ngayBD;
-    @Column(name = "ngay_kt")
-    private Date ngayKT;
-    @Column(name = "tien_coc")
-    private Double tienCoc;
+    @Column(name = "register_date")
+    private Date registerDate;
+    @Column(name = "checkin_date")
+    private Date checkinDate;
+    @Column(name = "checkout_date")
+    private Date checkoutDate;
 
     @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 }

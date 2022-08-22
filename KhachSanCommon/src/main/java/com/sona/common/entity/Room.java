@@ -24,7 +24,7 @@ public class Room {
     @OneToMany(mappedBy = "room")
     private List<Booking> bookings;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = false)
     private RoomCategory roomCategory;
 }

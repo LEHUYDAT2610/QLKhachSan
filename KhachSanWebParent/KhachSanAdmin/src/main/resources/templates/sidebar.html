@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <body>
 <div th:fragment="sidebar" class="sidebar" id="sidebar">
     <div class="sidebar-inner slimscroll">
@@ -19,13 +19,16 @@
                         <li><a th:href="@{/khac-hang/them-khach-hang}"> Thêm khách hàng </a></li>
                     </ul>
                 </li>
-                <li class="submenu"> <a href="#"><i class="fas fa-key"></i> <span> Rooms </span> <span class="menu-arrow"></span></a>
+                <li class="submenu">
+                    <a href="#" sec:authorize="hasAuthority('Admin')">
+                        <i class="fas fa-key"></i> <span> Rooms </span> <span class="menu-arrow"></span></a>
                     <ul class="submenu_class" style="display: none;">
                         <li><a th:href="@{/room}">Phòng </a></li>
                         <li><a th:href="@{/loai-phong}"> Loại phòng </a></li>
                     </ul>
                 </li>
-                <li class="submenu"> <a href="#"><i class="fas fa-user"></i> <span> Thành viên </span> <span class="menu-arrow"></span></a>
+                <li class="submenu" sec:authorize="hasAuthority('Admin')">
+                    <a href="#"><i class="fas fa-user"></i> <span> Thành viên </span> <span class="menu-arrow"></span></a>
                     <ul class="submenu_class" style="display: none;">
                         <li><a th:href="@{/thanh-vien}">Tất cả thành viên </a></li>
                         <li><a th:href="@{/thanh-vien/them-thanh-vien}"> Thêm thành viên </a></li>

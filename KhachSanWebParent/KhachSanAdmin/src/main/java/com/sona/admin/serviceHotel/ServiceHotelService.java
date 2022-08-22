@@ -7,10 +7,12 @@ import com.sona.common.entity.ServiceHotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@Transactional
 public class ServiceHotelService {
     @Autowired
     private ServiceHotelRepository serviceHotelRepository;
@@ -42,5 +44,9 @@ public class ServiceHotelService {
 
     public List<ServiceHotel> getByKeyword(String keyword) {
         return serviceHotelRepository.findByKeyword(keyword);
+    }
+
+    public void updateServiceEnabledStatus(Integer id, boolean enabled) {
+        serviceHotelRepository.updateEnabledStatus(id, enabled);
     }
 }
