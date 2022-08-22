@@ -42,19 +42,51 @@ public class CategoryController {
 
     @PostMapping("/loai-phong/save")
     public String saveRoomCategory(RoomCategory roomCategory, RedirectAttributes redirectAttributes,
-                                   @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
-        if (!multipartFile.isEmpty()) {
-            String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-            roomCategory.setMainImage(fileName);
-            RoomCategory savedCategory = categoryService.save(roomCategory);
-            String uploadDir = "category-images/" + savedCategory.getId();
-            FileUploadUtil.cleanDir(uploadDir);
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-        } else {
-            categoryService.save(roomCategory);
-        }
+                                   @RequestParam("fileImage") MultipartFile multipartFile, @RequestParam("extraImage") MultipartFile[] extraImageMultiparts) throws IOException {
+        setMainImageName(multipartFile, roomCategory);
+        setExtraImageNames(extraImageMultiparts, roomCategory);
+        RoomCategory savedCategory = categoryService.save(roomCategory);
+        saveUploadedImages(multipartFile, extraImageMultiparts, savedCategory);
+
         redirectAttributes.addFlashAttribute("message", "Thêm loại phòng mới thành công");
         return "redirect:/loai-phong";
+    }
+
+    private void setMainImageName(MultipartFile mainImageMultipart, RoomCategory roomCategory) {
+        if (!mainImageMultipart.isEmpty()) {
+            String fileName = StringUtils.cleanPath(Objects.requireNonNull(mainImageMultipart.getOriginalFilename()));
+            roomCategory.setMainImage(fileName);
+        }
+    }
+
+    private void setExtraImageNames(MultipartFile[] extraImageMultiparts, RoomCategory roomCategory) {
+        if (extraImageMultiparts.length > 0) {
+            for (MultipartFile multipartFile : extraImageMultiparts) {
+                if (!multipartFile.isEmpty()) {
+                    String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+                    roomCategory.addExtraImage(fileName);
+                }
+            }
+        }
+    }
+
+    private void saveUploadedImages(MultipartFile mainMultipart, MultipartFile[] extraImageMultiparts, RoomCategory savedCategory) throws IOException {
+       if (!mainMultipart.isEmpty()) {
+           String fileName = StringUtils.cleanPath(Objects.requireNonNull(mainMultipart.getOriginalFilename()));
+           String uploadDir = "category-images/" + savedCategory.getId();
+           FileUploadUtil.cleanDir(uploadDir);
+           FileUploadUtil.saveFile(uploadDir, fileName, mainMultipart);
+       }
+
+       if (extraImageMultiparts.length > 0) {
+           String uploadDir = "category-images/" + savedCategory.getId() + "/extras";
+
+           for (MultipartFile multipartFile : extraImageMultiparts) {
+               if (multipartFile.isEmpty()) continue;
+               String fileName = StringUtils.cleanPath(Objects.requireNonNull(mainMultipart.getOriginalFilename()));
+               FileUploadUtil.saveFile(uploadDir, fileName, mainMultipart);
+           }
+       }
     }
 
     @GetMapping("/loai-phong/them-loai-phong")

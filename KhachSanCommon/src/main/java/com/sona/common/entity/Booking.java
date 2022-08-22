@@ -11,7 +11,7 @@ import java.util.Date;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @Column(name = "register_date")
     private Date registerDate;
     @Column(name = "checkin_date")

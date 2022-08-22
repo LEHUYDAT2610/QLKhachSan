@@ -30,16 +30,16 @@ public class ServiceHotelController {
             List<ServiceHotel> serviceHotels = serviceHotelService.listAll();
             model.addAttribute("serviceHotels", serviceHotels);
         }
-        return "all-services";
+        return "service/all-services";
     }
-
 
     @GetMapping("/dich-vu/them-dich-vu")
     public String newService(Model model) {
         ServiceHotel serviceHotel = new ServiceHotel();
+        serviceHotel.setActive(true);
         model.addAttribute("serviceHotel", serviceHotel);
         model.addAttribute("pageTitle", "Thêm dịch vụ");
-        return "form-service";
+        return "service/form-service";
     }
 
     @PostMapping("/dich-vu/save")
@@ -57,7 +57,7 @@ public class ServiceHotelController {
         try {
             ServiceHotel serviceHotel = serviceHotelService.get(id);
             model.addAttribute("serviceHotel", serviceHotel);
-            return "form-service";
+            return "service/form-service";
         } catch (ServiceHotelNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
             return "redirect:/dich-vu";

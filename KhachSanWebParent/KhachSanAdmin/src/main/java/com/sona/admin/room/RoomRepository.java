@@ -18,4 +18,6 @@ public interface RoomRepository extends CrudRepository<Room, Integer> {
     public void updateActiveStatus(Integer id, boolean isActive);
 
     Long countById(Integer id);
+
+    List<Room> getRoomByStatus(int status);
 }

@@ -20,6 +20,9 @@ public class ServiceHotelService {
     public List<ServiceHotel> listAll() {
         return (List<ServiceHotel>) serviceHotelRepository.findAll();
     }
+    public List<ServiceHotel> getAllServiceActiving() {
+        return serviceHotelRepository.getAllServiceActiving();
+    }
 
     public ServiceHotel save(ServiceHotel serviceHotel) {
         return serviceHotelRepository.save(serviceHotel);

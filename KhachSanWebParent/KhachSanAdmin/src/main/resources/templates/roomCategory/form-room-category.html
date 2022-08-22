@@ -18,7 +18,7 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<form th:action="@{/loai-phong/save}" method="post" th:object="${roomCategory}" enctype="multipart/form-data">
-							<div class="row formtype">
+							<div class="row formtype divForm">
 								<input type="hidden" th:field="*{id}">
 								<div class="col-md-4">
 									<div class="form-group">
@@ -61,12 +61,12 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-2">
+								<div class="col-md-2" id="divExtraImage0">
 									<div class="form-group">
-										<label>Ảnh #1</label>
+										<div id="extraImageHeader0"><label>Ảnh #1</label></div>
 										<div class="custom-file mb-3">
-											<input type="file" class="custom-file-input" id="extraImage1" name="extraImage1" accept="image/png, image/jpeg">
-											<img th:src="@{${roomCategory.mainImagePath}}" alt="Photos preview" id="extraThumbnail" width="100">
+											<input type="file" class="custom-file-input" name="extraImage" accept="image/png, image/jpeg">
+											<img th:src="@{${roomCategory.mainImagePath}}" alt="Photos preview" id="extraThumbnail0" width="100">
 											<label class="custom-file-label" for="customFile">Chọn tệp</label>
 										</div>
 									</div>
@@ -86,23 +86,53 @@
 
 	</th:block>
 <script>
+	defaultImageThumbnailSrc = "[[@{/img/default-image.jpg}]]"
+	var extraImagesCount = 0;
 	$("#btnCancel").on("click", function () {
 		window.location = "[[@{/loai-phong}]]";
 	});
-	$("#extraImage1").change(function () {
-		if (!checkFileSize(this)) {
-			return;
-		}
-		showExtraImageThumbnail(this);
+
+	$("input[name='extraImage']").each(function (index){
+			$(this).change(function () {
+				showExtraImageThumbnail(this, index)
+			})
 	})
 
-	function showExtraImageThumbnail(fileInput) {
+	function showExtraImageThumbnail(fileInput, index) {
 		var file = fileInput.files[0];
 		var reader = new FileReader();
 		reader.onload = function (e) {
-			$("#extraThumbnail").attr("src", e.target.result);
+			$("#extraThumbnail" + index).attr("src", e.target.result);
 		}
 		reader.readAsDataURL(file);
+		if (index >= extraImagesCount ) {
+			addExtraImageSection(index + 1);
+		}
+	}
+
+	function addExtraImageSection(index) {
+		html = `<div class="col-md-2" id="divExtraImage${index}">
+					<div class="form-group">
+						<div id="extraImageHeader${index}"><label>Ảnh ${index + 1}</label></div>
+						<div class="custom-file mb-3">
+						<input type="file" class="custom-file-input" name="extraImage" accept="image/png, image/jpeg" onchange="showExtraImageThumbnail(this, ${index})">
+						<img src=${defaultImageThumbnailSrc} alt="Photos preview" id="extraThumbnail${index}" width="100">
+						<label class="custom-file-label" for="customFile">Chọn tệp</label>
+					</div>
+					</div>
+				</div>`
+		htmlLinkRemove = `
+		<a class="btn fas fa-times-circle fa-1x float-right" title="Remove this image" href="javascript:removeExtraImage(${index -1})"></a>
+		`;
+
+		$('.divForm').append(html);
+
+		$("#extraImageHeader" + (index - 1)).append(htmlLinkRemove);
+		extraImagesCount++;
+	}
+
+	function removeExtraImage(index) {
+		$("#divExtraImage" + index).remove();
 	}
 </script>
 	<script th:src="@{/js/common_form.js}"></script>

@@ -17,4 +17,7 @@ public interface ServiceHotelRepository extends CrudRepository<ServiceHotel, Int
     @Query("UPDATE ServiceHotel s SET s.isActive = ?2 where s.id = ?1")
     @Modifying
     public void updateEnabledStatus(Integer id, boolean enabled);
+
+    @Query("select s from ServiceHotel s where s.isActive = true")
+    List<ServiceHotel> getAllServiceActiving();
 }

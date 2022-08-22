@@ -78,8 +78,8 @@
 												<td>
 													<div class="actions">
 														<a th:href="@{'room/sua/' + ${room.id}}" class="fas fa-edit fa-2x mr-2" style="color: #00bf6f" title="Sửa thông tin phòng này"></a>
-														<a th:onclick="'fillModal('+ ${room.id}+ ')'" id="deleteLink" data-toggle="modal" data-target="#delete_asset" class="fas fa-trash fa-2x mr-2" style="color: #0b2e13" title="Xóa phòng này"></a>
-														<form th:action="@{'room/xoa/' + ${room.id} }" th:hidden="true" id="deleteForm"></form>
+														<a th:onclick="'fillModal('+ ${room.id}+ ')'" data-toggle="modal" data-target="#delete_asset" class="fas fa-trash fa-2x mr-2" style="color: #0b2e13" title="Xóa phòng này"></a>
+														<form th:action="@{'room/xoa/' + ${room.id} }" th:hidden="true" th:id="'deleteForm' + ${room.id}"></form>
 													</div>
 												</td>
 											</tr>
@@ -97,7 +97,7 @@
 						<div class="modal-body text-center"> <img th:src="@{/img/sent.png}" alt="" width="50" height="46">
 							<h3 class="delete_class">Bạn chắc chắn muốn xóa phòng này?</h3>
 							<div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Hủy bỏ</a>
-								<button type="submit" class="btn btn-danger" onclick="$($('#deleteForm').submit())">Xác nhận</button>
+								<button type="submit" class="btn btn-danger btnConfirm">Xác nhận</button>
 							</div>
 						</div>
 					</div>
@@ -114,6 +114,7 @@
 
 		function fillModal(id) {
 			$('.delete_class').text('Bạn chắc chắc muốn xóa phòng ' + id)
+			submitFormDelete(id);
 		}
 	</script>
 </body>

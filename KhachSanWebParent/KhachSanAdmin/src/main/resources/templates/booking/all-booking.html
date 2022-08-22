@@ -10,12 +10,15 @@
 		<div class="page-wrapper">
 			<div class="content container-fluid">
 				<div class="page-header">
+					<div th:if="${message != null}" class="alert alert-success text-center">
+						[[${message}]]
+					</div>
 					<div class="row align-items-center">
 						<div class="col">
 							<div class="mt-5">
-								<h4 class="card-title float-left mt-2">Appointments</h4>
-                                <a href="add-booking.html" class="btn btn-primary float-right veiwbutton ">Add Booking</a>
-                            </div>
+								<h4 class="card-title float-left mt-2">Tất cả các đơn đặt phòng</h4>
+								<a th:href="@{/booking/them-dat-phong}" class="btn btn-primary float-right veiwbutton">Thêm đơn đặt phòng</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -30,15 +33,15 @@
 												<th>ID</th>
 												<th>Họ tên</th>
 												<th>Loại phòng</th>
-												<th>Total Numbers</th>
+												<th>Số người</th>
 												<th>Ngày đăng ký</th>
 												<th>Giờ đăng ký</th>
 												<th>Ngày đến</th>
 												<th>Ngày đi</th>
 												<th>Email</th>
 												<th>SDT</th>
-												<th>Status</th>
-												<th class="text-right">Actions</th>
+												<th>Trạng thái</th>
+												<th>Hành động</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -203,10 +206,10 @@
 			<div id="delete_asset" class="modal fade delete-modal" role="dialog">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
-						<div class="modal-body text-center"> <img src="assets/img/sent.png" alt="" width="50" height="46">
-							<h3 class="delete_class">Are you sure want to delete this Asset?</h3>
-							<div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
-								<button type="submit" class="btn btn-danger">Delete</button>
+						<div class="modal-body text-center"> <img th:src="@{/img/sent.png}" alt="" width="50" height="46">
+							<h3 class="delete_class">Bạn chắc chắn muốn xóa đơn này?</h3>
+							<div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Hủy bỏ</a>
+								<button type="submit" class="btn btn-danger btnConfirm">Xác nhận</button>
 							</div>
 						</div>
 					</div>
@@ -216,6 +219,17 @@
 	</div>
 	<th:block th:replace="fragments::script">
 	</th:block>
+
+	<script>
+		function clearFilter() {
+			window.location = "[[@{/room/}]]";
+		}
+
+		function fillModal(id) {
+			$('.delete_class').text('Bạn chắc chắc muốn xóa đơn ' + id)
+			submitFormDelete(id);
+		}
+	</script>
 </body>
 
 </html>

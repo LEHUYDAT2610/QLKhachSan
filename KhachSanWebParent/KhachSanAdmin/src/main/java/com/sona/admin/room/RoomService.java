@@ -26,6 +26,10 @@ public class RoomService {
         return (List<RoomCategory>) categoryRepository.findAll();
     }
 
+    public List<Room> getAllRoomsByStatus(int status) {
+        return roomRepository.getRoomByStatus(status);
+    }
+
     public Room get(Integer id) throws ServiceHotelNotFoundException {
         try {
             return roomRepository.findById(id).get();
@@ -53,4 +57,5 @@ public class RoomService {
         }
         roomRepository.deleteById(id);
     }
+
 }

@@ -17,27 +17,48 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
-						<form th:action="@{/dich-vu/save}" method="post" th:object="${serviceHotel}">
+						<form th:action="@{/dich-vu/save}" method="post" th:object="${usingService}">
 							<div class="row formtype">
 								<input type="hidden" th:field="*{id}">
 								<div class="col-md-4">
 									<div class="form-group">
 										<label>Tên dịch vụ</label>
-										<input class="form-control" type="text" th:field="*{name}" required>
+										<select class="form-control" th:field="*{serviceHotel}">
+											<option th:each="serviceHotel: ${serviceHotels}" th:value="${serviceHotel.id}" th:text="${serviceHotel.name}"></option>
+										</select>
 									</div>
 								</div>
+
 								<div class="col-md-4">
 									<div class="form-group">
-										<label>Giá</label>
-										<input class="form-control" type="text" th:field="*{price}" required>
+										<label>Phòng</label>
+										<select class="form-control">
+											<option th:each="room : ${listRoomsUsing}" th:value="${room.id}" th:text="${room.id}"></option>
+										</select>
 									</div>
 								</div>
+
 								<div class="col-md-4">
 									<div class="form-group">
-										<label>Hoạt động</label> <br>
-										<input type="checkbox" th:field="*{active}">
+										<label>Họ tên khách hàng</label>
+										<select class="form-control">
+											<option th:each="room : ${listRoomsUsing}" th:value="${room.id}" th:text="${room.id}"></option>
+										</select>
 									</div>
 								</div>
+
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Số lượng</label>
+										<input class="form-control" type="text" th:field="*{quantity}" required>
+									</div>
+								</div>
+<!--								<div class="col-md-4">-->
+<!--									<div class="form-group">-->
+<!--										<label>Hoạt động</label> <br>-->
+<!--										<input type="checkbox" th:field="*{active}">-->
+<!--									</div>-->
+<!--								</div>-->
 							</div>
 							<button type="submit" class="btn btn-primary buttonedit ml-2">Lưu</button>
 							<button type="button" class="btn btn-primary buttonedit" id="btnCancel">Hủy bỏ</button>
@@ -69,7 +90,7 @@
 	</th:block>
 <script>
 	$("#btnCancel").on("click", function () {
-		window.location = "[[@{/dich-vu}]]";
+		window.location = "[[@{/su-dung-dich-vu}]]";
 	});
 
 </script>
