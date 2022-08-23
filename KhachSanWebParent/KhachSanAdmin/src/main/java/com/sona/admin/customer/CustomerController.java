@@ -57,7 +57,7 @@ public class CustomerController {
             Customer customer = customerService.get(id);
             model.addAttribute("pageTitle", "Sửa khách hàng");
             model.addAttribute("customer", customer);
-            return "form-customer";
+            return "customer/form-customer";
         } catch (CustomerNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
             return "redirect:/khach-hang";

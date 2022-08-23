@@ -90,7 +90,7 @@
 												<div class="actions">
 													<a th:href="@{'booking/sua/' + ${booking.id}}" class="fas fa-edit fa-2x mr-2" style="color: #00bf6f" title="Sửa thông tin đơn này"></a>
 													<a th:onclick="'fillModal('+ ${booking.id}+ ')'" data-toggle="modal" data-target="#delete_asset" class="fas fa-trash fa-2x mr-2" style="color: #0b2e13; cursor: pointer" title="Xóa đơn này"></a>
-													<a th:unless="${booking.status == 2}" th:href="@{'/booking/' + ${booking.id} + '/huy'}" class="fa fa-times fa-2x" style="color: red" title="Hủy đơn"></a>
+													<a th:unless="${booking.status == 2}" th:href="@{'/booking/huy/' + ${booking.id} }" class="fa fa-times fa-2x" style="color: red" title="Hủy đơn"></a>
 													<form th:action="@{'booking/xoa/' + ${booking.id} }" th:hidden="true" th:id="'deleteForm' + ${booking.id}"></form>
 												</div>
 											</td>

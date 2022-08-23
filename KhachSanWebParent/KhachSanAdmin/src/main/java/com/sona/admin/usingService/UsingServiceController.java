@@ -27,6 +27,8 @@ public class UsingServiceController {
         if (keyword != null) {
             List<UsingService> usingServices = service.getByKeyword(keyword);
             double sum=0;
+            List<Room> listRoomsUsing = roomService.getAllRoomsByStatus(1);
+            model.addAttribute("listRoomsUsing", listRoomsUsing);
             model.addAttribute("usingServices", usingServices);
             model.addAttribute("keyword", keyword);
         } else {
