@@ -15,6 +15,7 @@ public class MvcConfig implements WebMvcConfigurer {
         exposeDirectory("user-photos", registry);
     }
 
+
     private void exposeDirectory(String pathPattern, ResourceHandlerRegistry registry) {
         Path path = Paths.get(pathPattern);
         String absolutePath = path.toFile().getAbsolutePath();

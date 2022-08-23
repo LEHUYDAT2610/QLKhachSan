@@ -19,7 +19,7 @@ import java.util.List;
 public class ServiceHotelController {
     @Autowired
     ServiceHotelService serviceHotelService;
-
+    // lấy danh sách dịch vụ
     @GetMapping("/dich-vu")
     public String listAll(Model model, @Param("keyword") String keyword) {
         if (keyword != null) {
@@ -32,7 +32,7 @@ public class ServiceHotelController {
         }
         return "service/all-services";
     }
-
+    // thêm dịch vụ
     @GetMapping("/dich-vu/them-dich-vu")
     public String newService(Model model) {
         ServiceHotel serviceHotel = new ServiceHotel();
@@ -49,7 +49,7 @@ public class ServiceHotelController {
         return "redirect:/dich-vu";
     }
 
-    //Sua thong tin tai khoan
+    //Sua thong tin dịch vụ
     @GetMapping("/dich-vu/sua/{id}")
     public String editService(@PathVariable(name = "id") Integer id,
                                Model model,
@@ -63,7 +63,7 @@ public class ServiceHotelController {
             return "redirect:/dich-vu";
         }
     }
-
+    // xóa dịch vụ
     @GetMapping("/dich-vu/xoa/{id}")
     public String deleteService(@PathVariable(name = "id") Integer id,
                                  Model model,

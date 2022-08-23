@@ -25,11 +25,13 @@ public class BookingController {
     RoomService roomService;
     @Autowired
     CustomerService customerService;
-
+    // lấy danh sách đặt phòng
     @GetMapping("/booking")
     public String listAll(Model model, @Param("keyword") String keyword) {
         if (keyword != null) {
             List<Booking> bookings = bookingService.getByKeyword(keyword);
+
+
             model.addAttribute("bookings", bookings);
             model.addAttribute("keyword", keyword);
         } else {
@@ -38,20 +40,21 @@ public class BookingController {
         }
         return "booking/all-booking";
     }
-
+    // thêm đặt phòng
     @GetMapping("/booking/them-dat-phong")
     public String newBooking(Model model) {
         Booking booking = new Booking();
         //Lay cac phong dang san sang va cho su dung
         List<Room> rooms = roomService.getRoomsByStatusAndActive(1, true);
         List<Customer> customers = customerService.listAll();
+
         model.addAttribute("booking", booking);
         model.addAttribute("rooms", rooms);
         model.addAttribute("customers", customers);
         model.addAttribute("pageTitle", "Thêm đơn đặt phòng");
         return "booking/form-booking";
     }
-
+    // sửa đặt phòng
     @PostMapping("/booking/save")
     public String saveBooking(Booking booking, RedirectAttributes redirectAttributes) {
         booking.setRegisterDate(new Date());
@@ -60,7 +63,7 @@ public class BookingController {
         redirectAttributes.addFlashAttribute("message", "Đặt phòng thành công");
         return "redirect:/booking";
     }
-
+    // sửa đặt phòng
     @GetMapping("/booking/sua/{id}")
     public String editBooking(@PathVariable(name = "id") Integer id,
                               Model model,
@@ -69,6 +72,8 @@ public class BookingController {
             Booking booking = bookingService.get(id);
             List<Room> rooms = roomService.getRoomsByStatusAndActive(1, true);
             List<Customer> customers = customerService.listAll();
+
+
             model.addAttribute("booking", booking);
             model.addAttribute("rooms", rooms);
             model.addAttribute("customers", customers);
@@ -79,12 +84,13 @@ public class BookingController {
             return "redirect:/booking";
         }
     }
-
+    //xóa đặt phòng
     @GetMapping("/booking/xoa/{id}")
     public String deleteBooking(@PathVariable(name = "id") Integer id,
                               Model model,
                               RedirectAttributes redirectAttributes) {
         try {
+
             bookingService.delete(id);
             redirectAttributes.addFlashAttribute("message", "Đã xóa đơn đặt phòng " + id + " thành công");
         } catch (BookingNotFoundException e) {
