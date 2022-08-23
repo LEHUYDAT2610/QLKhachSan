@@ -20,7 +20,7 @@ public class InvoiceController {
 
     @GetMapping("/hoa-don")
     public String listAll(Model model) {
-            List<Invoice> invoices = invoiceService.listall();
+            List<InvoiceDTO> invoices = invoiceService.getall();
             model.addAttribute("invoice", invoices);
         return "invoices";
     }

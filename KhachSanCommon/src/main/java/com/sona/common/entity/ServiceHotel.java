@@ -3,6 +3,7 @@ package com.sona.common.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -17,4 +18,7 @@ public class ServiceHotel {
     private Double price;
     @Column(name = "is_active")
     private boolean isActive;
+
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
+    private List<UsingService> usingServices;
 }

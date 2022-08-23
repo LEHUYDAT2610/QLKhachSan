@@ -23,26 +23,20 @@
          <th>Tiền phòng</th>
          <th>Tiền dịch vụ</th>
          <th>Tổng tiền</th>
-         <th class="text-right">Status</th>
          <th class="text-right">Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="invoices: ${invoice}">
-         <td>[[${invoices.id}]]</td>
-         <td>[[${invoices.booking.customer.fullName}]]</td>
-         <td>[[${invoices.createdDate}]]</td>
-         <td th:if="${invoices.payment == 0}" class="text-primary">Tiền mặt</td>
-         <td th:if="${invoices.payment == 1}" class="text-success">Chuyển khoản</td>
+         <td>[[${invoices.IdHD}]]</td>
+         <td>[[${invoices.FullName}]]</td>
+         <td>[[${invoices.CreatedDate}]]</td>
+         <td th:if="${invoices.Payment == 0}" class="text-primary">Tiền mặt</td>
+         <td th:if="${invoices.Payment == 1}" class="text-success">Chuyển khoản</td>
          <td>[[${invoices.vat}]]</td>
-         <td><span class="text-small" th:text="${(invoices.booking.checkoutDate.getDate() - invoices.booking.checkinDate.getDate())*invoices.booking.room.roomCategory.price} + ' VND' "></span></td>
-         <td class="text-right">
-          <div class="actions">
-           <a href="#" class="btn btn-sm bg-success-light mr-2">
-            Active
-           </a>
-          </div>
-         </td>
+         <td>[[${invoices.TienPhong}]]</td>
+         <td>[[${invoices.TienDV}]]</td>
+         <td>[[${invoices.TongTien}]]</td>
          <td class="text-right">
           <div class="dropdown dropdown-action">
            <a href="#" class="action-icon dropdown-toggle"

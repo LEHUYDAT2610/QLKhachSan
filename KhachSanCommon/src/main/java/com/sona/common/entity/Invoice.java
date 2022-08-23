@@ -19,7 +19,6 @@ public class Invoice {
     private int payment;
     @Column
     private float vat;
-
     @ManyToOne
     @JoinColumn(name = "booking_id", nullable = false)
     Booking booking;

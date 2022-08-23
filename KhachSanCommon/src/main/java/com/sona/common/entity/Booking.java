@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -32,6 +33,10 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
+
+    @OneToMany(mappedBy = "serviceHotel", cascade = CascadeType.ALL)
+    private List<UsingService> usingServices;
+
 
     @Transient
     public void setCheckinDate(String checkinDate){
