@@ -65,22 +65,17 @@
                                     <tbody>
                                     <tr th:each="usingService: ${usingServices}">
                                         <td th:text="${usingService.booking.room.id}"></td>
-                                        <td th:text="${room.floor}"></td>
-                                        <td th:if="${room.status == 1}" class="text-primary">Sẵn sàng <i class="fas fa-check"></i></td>
-                                        <td th:if="${room.status == 2}">Đang sử dụng <i class="fas fa-person-booth"></i></td>
-                                        <td th:if="${room.status == 3}">Đang sửa chữa <i class="fas fa-screwdriver"></i></td>
-                                        <td th:if="${room.active == true}">
-                                            <a th:href="@{'/room/' + ${room.id} + '/hoat-dong/false'}" class="text-success" title="Chuyển sang không cho sử dụng">Cho sử dụng</a>
-                                        </td>
-                                        <td th:if="${room.active == false}" class="text-danger">
-                                            <a th:href="@{'/room/' + ${room.id} + '/hoat-dong/true'}" class="text-danger" title="Chuyển sang cho sử dụng">Không cho sử dụng</a>
-                                        </td>
-                                        <td th:text="${room.note}"></td>
+                                        <td th:text="${usingService.booking.customer.fullName}"></td>
+                                        <td th:text="${usingService.booking.customer.email}"></td>
+                                        <td th:text="${usingService.booking.customer.phoneNumber}"></td>
+                                        <td th:text="${usingService.serviceHotel.name}"></td>
+                                        <td th:text="${usingService.quantity}"></td>
+
                                         <td>
-                                            <div class="actions">
-                                                <a th:href="@{'room/sua/' + ${room.id}}" class="fas fa-edit fa-2x mr-2" style="color: #00bf6f" title="Sửa thông tin phòng này"></a>
-                                                <a th:onclick="'fillModal('+ ${room.id}+ ')'" data-toggle="modal" data-target="#delete_asset" class="fas fa-trash fa-2x mr-2" style="color: #0b2e13" title="Xóa phòng này"></a>
-                                                <form th:action="@{'room/xoa/' + ${room.id} }" th:hidden="true" th:id="'deleteForm' + ${room.id}"></form>
+                                        <div class="actions">
+                                                <a th:href="@{'room/sua/' + ${usingService.id}}" class="fas fa-edit fa-2x mr-2" style="color: #00bf6f" title="Sửa thông tin phòng này"></a>
+                                                <a th:onclick="'fillModal('+ ${usingService.id}+ ')'" data-toggle="modal" data-target="#delete_asset" class="fas fa-trash fa-2x mr-2" style="color: #0b2e13" title="Xóa phòng này"></a>
+                                                <form th:action="@{'room/xoa/' + ${usingService.id} }" th:hidden="true" th:id="'deleteForm' + ${usingService.id}"></form>
                                             </div>
                                         </td>
                                     </tr>
@@ -110,11 +105,11 @@
 </th:block>
 <script>
     function clearFilter() {
-        window.location = "[[@{/room/}]]";
+        window.location = "[[@{/usingService/}]]";
     }
 
     function fillModal(id) {
-        $('.delete_class').text('Bạn chắc chắc muốn xóa phòng ' + id)
+        $('.delete_class').text('Bạn chắc chắc muốn xóa sử dụng dịch vụ ' + id)
         submitFormDelete(id);
     }
 </script>
