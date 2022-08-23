@@ -2,6 +2,7 @@ package com.sona.admin.room;
 
 import com.sona.common.entity.Account;
 import com.sona.common.entity.Room;
+import com.sona.common.entity.RoomCategory;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -19,5 +20,10 @@ public interface RoomRepository extends CrudRepository<Room, Integer> {
 
     Long countById(Integer id);
 
-    List<Room> getRoomByStatus(int status);
+    List<Room> getRoomsByStatus(int status);
+
+    @Query("select r from Room r where r.status=?1 and r.isActive=?2")
+    List<Room> getRoomsByStatusAndActive(int status, boolean active);
+
+    List<Room> getRoomsByRoomCategory(RoomCategory roomCategory);
 }

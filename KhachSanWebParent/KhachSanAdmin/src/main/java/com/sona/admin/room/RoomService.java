@@ -27,7 +27,11 @@ public class RoomService {
     }
 
     public List<Room> getAllRoomsByStatus(int status) {
-        return roomRepository.getRoomByStatus(status);
+        return roomRepository.getRoomsByStatus(status);
+    }
+
+    public List<Room> getRoomsByStatusAndActive(int status, boolean active) {
+        return roomRepository.getRoomsByStatusAndActive(status, active);
     }
 
     public Room get(Integer id) throws ServiceHotelNotFoundException {

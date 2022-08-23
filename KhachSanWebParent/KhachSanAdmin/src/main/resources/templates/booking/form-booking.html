@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments::head_page('Tất cả các phòng')"></head>
+<head th:replace="fragments::head_page('Tất cả các đơn đặt phòng')"></head>
 
 <body>
 	<div class="main-wrapper">
@@ -17,57 +17,58 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
-						<form th:action="@{/room/save}" method="post" th:object="${room}">
+						<form th:action="@{/booking/save}" method="post" th:object="${booking}">
 							<div class="row formtype">
 								<input type="hidden" th:field="*{id}">
 								<div class="col-md-4">
 									<div class="form-group">
-										<label>Loại phòng</label>
-										<select class="form-control" th:field="*{roomCategory}">
-											<option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+										<label>Khách hàng</label>
+										<select class="form-control" th:field="*{customer}">
+											<option th:each="customer: ${customers}" th:value="${customer.id}">[[${customer.fullName}]]-[[${customer.email}]]</option>
 										</select>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										<label>Tầng</label>
-										<select class="form-control" th:field="*{floor}">
+										<label>Phòng còn trống</label>
+										<select class="form-control" th:field="*{room}">
+											<option th:each="room: ${rooms}" th:value="${room.id}">[[${room.id}]]-[[${room.roomCategory.name}]]</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Số lượng người</label>
+										<select class="form-control" th:field="*{totalMember}">
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
 											<option value="4">4</option>
 											<option value="5">5</option>
 											<option value="6">6</option>
-											<option value="7">7</option>
-										</select>
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										<label>Cho sử dụng/Không cho sử dụng</label>
-										<select class="form-control" th:field="*{active}">
-											<option value="true">Cho sử dụng</option>
-											<option value="false">Không cho sử dụng</option>
 										</select>
 									</div>
 								</div>
 
 								<div class="col-md-4">
 									<div class="form-group">
-										<label>Trạng thái</label>
-										<select class="form-control" th:field="*{status}">
-											<option value="1">Sẵn sàng</option>
-											<option value="3">Đang sửa chữa</option>
-										</select>
+										<label>Ngày đến</label>
+										<div>
+											<input type="date" class="form-control" name="checkinDate" th:value="${#dates.format(booking.checkinDate, 'yyyy-MM-dd')}">
+										</div>
 									</div>
 								</div>
 
 								<div class="col-md-4">
 									<div class="form-group">
-										<label>Ghi chú</label>
-										<textarea class="form-control" rows="5" th:field="*{note}"></textarea>
+										<label>Ngày đi</label>
+										<div>
+											<input type="date" class="form-control" name="checkoutDate" th:value="${#dates.format(booking.checkoutDate, 'yyyy-MM-dd')}">
+										</div>
 									</div>
 								</div>
+
 							</div>
 							<button type="submit" class="btn btn-primary buttonedit ml-2">Lưu</button>
 							<button type="button" class="btn btn-primary buttonedit" id="btnCancel">Hủy bỏ</button>

@@ -41,6 +41,7 @@ public class Account {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
+
     public void setDateOfBirth(String dateOfBirth){
         try {
             this.dateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);

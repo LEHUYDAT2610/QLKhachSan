@@ -1,7 +1,7 @@
-package com.sona.admin.account;
+package com.sona.admin.booking;
 
-public class UserNotFoundException extends Exception {
-    public UserNotFoundException(String s) {
+public class BookingNotFoundException extends Exception {
+    public BookingNotFoundException(String s) {
         super(s);
     }
 }
