@@ -13,4 +13,14 @@ public class RoomController {
     public String viewDetail() {
         return "room-details";
     }
+
+    @GetMapping("/dat-phong")
+    public String viewBooking() {
+        return "form-booking";
+    }
+
+    @GetMapping("/dat-thanh-cong")
+    public String viewSucess() {
+        return "booking-success";
+    }
 }
