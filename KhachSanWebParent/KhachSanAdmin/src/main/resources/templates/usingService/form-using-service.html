@@ -42,7 +42,7 @@
 									<div class="form-group">
 										<label>Họ tên khách hàng</label>
 										<select class="form-control">
-											<option th:each="room : ${listRoomsUsing}" th:value="${room.id}" th:text="${room.id}"></option>
+											<option th:each="room : ${listRoomsUsing}" th:value="${room.bookings.id}" th:text="${room.bookings.customer.fullName}"></option>
 										</select>
 									</div>
 								</div>
