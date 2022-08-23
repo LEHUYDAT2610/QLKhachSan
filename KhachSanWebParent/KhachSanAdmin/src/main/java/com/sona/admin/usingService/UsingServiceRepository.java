@@ -10,4 +10,5 @@ public interface UsingServiceRepository extends CrudRepository<UsingService, Int
 
     @Query("SELECT u FROM UsingService u WHERE concat(u.id, ' ') like %?1%")
     List<UsingService> findByKeyword(String keyword);
+    List<UsingService> getUsingServiceByBooking_Id(Integer booking_id);
 }

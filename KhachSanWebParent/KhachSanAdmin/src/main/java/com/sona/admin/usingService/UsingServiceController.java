@@ -26,6 +26,7 @@ public class UsingServiceController {
     public String listAll(Model model, @Param("keyword") String keyword) {
         if (keyword != null) {
             List<UsingService> usingServices = service.getByKeyword(keyword);
+            double sum=0;
             model.addAttribute("usingServices", usingServices);
             model.addAttribute("keyword", keyword);
         } else {

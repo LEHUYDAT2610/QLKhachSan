@@ -19,4 +19,9 @@ public class UsingServiceService {
     public List<UsingService> getByKeyword(String keyword) {
         return usingServiceRepository.findByKeyword(keyword);
     }
+
+    public List<UsingService> getbybookingid(Integer id) {
+        return  usingServiceRepository.getUsingServiceByBooking_Id(id);
+    }
+
 }

@@ -27,4 +27,5 @@ public class Invoice {
     @ManyToOne
     @JoinColumn(name = "account_id", nullable = false)
     Account account;
+
 }
